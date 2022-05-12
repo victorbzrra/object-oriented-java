@@ -99,4 +99,30 @@ public class Methods {
 
         return higherEmployee.getName();
     }
+
+    public String higherBenefitMonth(List<Employee> employeeList, int month, int year){
+        LocalDate date = LocalDate.of(year, month, 1);
+        Employee higherEmployee = employeeList.get(0);
+        Double higherBenefit = 0.0;
+
+        for (Employee employee: employeeList) {
+            Double employeeBenefit = 0.0;
+            String officeName = employee.getOffice().getName();
+
+            if(officeName.equals("Secretário")){
+                employeeBenefit = getSalary(employee, date) * employee.getOffice().getBenefit();
+            } else if(officeName.equals("Vendedor")){
+                employeeBenefit = getSaleAmountMonth(employee, date) * employee.getOffice().getBenefit();
+            }
+
+            if(employeeBenefit > higherBenefit) {
+                higherEmployee = employee;
+                higherBenefit = employeeBenefit;
+            }
+        }
+
+        return higherEmployee.getName();
+    }
+
+
 }
