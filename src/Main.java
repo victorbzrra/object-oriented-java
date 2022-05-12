@@ -1,6 +1,7 @@
 import model.Employee;
 import model.Office;
 import model.Sale;
+import service.Methods;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -37,6 +38,13 @@ public class Main {
                 new Employee("Bento Albino", manager, LocalDate.of(2014, 3, 1))
         );
 
-        
+        Methods methods = new Methods();
+
+        //System.out.println(methods.totalPaymentsBenefitMonth(employees, 12, 2021));
+        //System.out.println(methods.totalPaymentsMonth(employees, 2, 2022));
+        //System.out.println(methods.higherBenefitMonth(employees, 3, 2022));
+        //System.out.println(methods.higherPaymentMonth(employees, 4,2022));
+        //System.out.println(methods.higherBenefitMonth(employees, 1, 2022));
+        //System.out.println(methods.higherSellerMonth(employees, 1, 2022));
     }
 }
