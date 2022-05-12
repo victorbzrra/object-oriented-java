@@ -124,5 +124,25 @@ public class Methods {
         return higherEmployee.getName();
     }
 
+    public String higherSellerMonth(List<Employee> employeeList, int month, int year){
+        LocalDate date = LocalDate.of(year, month, 1);
+        Employee higherEmployee = employeeList.get(0);
+        Double higherSale = 0.0;
 
+        for (Employee employee: employeeList){
+            Double saleAmountMonth = 0.0;
+            String officeName = employee.getOffice().getName();
+
+            if(officeName.equals("Vendedor")){
+                saleAmountMonth = getSaleAmountMonth(employee, date);
+            }
+
+            if(saleAmountMonth > higherSale){
+                higherEmployee = employee;
+                higherSale = saleAmountMonth;
+            }
+        }
+
+        return higherEmployee.getName();
+    }
 }
