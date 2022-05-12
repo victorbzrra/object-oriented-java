@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Methods {
 
-    private Double calculateSalary(Employee employee, LocalDate date){
+    private Double getSalary(Employee employee, LocalDate date){
         int diffYears = Period.between(employee.getStartDate(), date).getYears();
 
         if(diffYears >= 0){
@@ -36,13 +36,14 @@ public class Methods {
         Double totalPaymentBenefit = 0.0;
 
         for (Employee employee: employeeList) {
-            double salary = this.calculateSalary(employee, date);
+            String officeName = employee.getOffice().getName();
+            double salary = this.getSalary(employee, date);
 
-            if(employee.getOffice().getName().equals("Secretário")){
+            if(officeName.equals("Secretário")){
                 double benefit = salary * employee.getOffice().getBenefit();
                 totalPaymentBenefit += salary + benefit;
 
-            } else if(employee.getOffice().getName().equals(("Vendedor"))){
+            } else if(officeName.equals(("Vendedor"))){
                 double benefit = getSaleAmountMonth(employee, date) * employee.getOffice().getBenefit();
                 totalPaymentBenefit += salary + benefit;
 
@@ -59,10 +60,31 @@ public class Methods {
         Double totalPayment = 0.0;
 
         for (Employee employee : employeeList) {
-            totalPayment += this.calculateSalary(employee, date);
+            totalPayment += this.getSalary(employee, date);
         }
 
         return totalPayment;
+    }
+
+    public Double totalBenefitMonth(List<Employee> employeeList, int month, int year){
+        LocalDate date = LocalDate.of(year, month, 1);
+        Double totalBenefit = 0.0;
+
+        for (Employee employee: employeeList) {
+            String officeName = employee.getOffice().getName();
+
+            if(officeName.equals("Secretário")){
+                double benefit = this.getSalary(employee, date) * employee.getOffice().getBenefit();
+                totalBenefit += benefit;
+
+            } else if(officeName.equals(("Vendedor"))){
+                double benefit = getSaleAmountMonth(employee, date) * employee.getOffice().getBenefit();
+                totalBenefit += benefit;
+
+            }
+        }
+
+        return totalBenefit;
     }
 
     public String higherPaymentMonth(List<Employee> employeeList, int month, int year){
@@ -70,7 +92,7 @@ public class Methods {
         Employee higherEmployee = employeeList.get(0);
 
         for (Employee employee : employeeList) {
-           if(this.calculateSalary(employee, date) > this.calculateSalary(higherEmployee, date)){
+           if(this.getSalary(employee, date) > this.getSalary(higherEmployee, date)){
                higherEmployee = employee;
            }
         }
